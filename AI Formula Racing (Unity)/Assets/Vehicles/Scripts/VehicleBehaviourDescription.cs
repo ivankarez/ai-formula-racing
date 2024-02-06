@@ -25,6 +25,8 @@ namespace Ivankarez.AIFR.Vehicles
         public bool IsABSEnabled => isABSEnabled;
         public float ABSSpeed => absSpeed;
         public float ABSCut => absCut;
+        public float ClutchSpeed => clutchSpeed;
+        public float IdleRpm => idleRPM;
 
 
         [Header("Physical")]
@@ -34,6 +36,7 @@ namespace Ivankarez.AIFR.Vehicles
         [Header("Engine")]
         [SerializeField][Tooltip("Maximum engine torque (in newton meters)")] private float maxTorque = 500;
         [SerializeField][Tooltip("Maximum engine RPM")] private float maxRPM = 6000;
+        [SerializeField][Tooltip("Engine rpm in idle state")] private float idleRPM = 800;
         [SerializeField][Tooltip("Torque curve of the engine. Where the X axis is the RPM % [0-1], and Y is the torque % [0-1]")] private AnimationCurve torqueCurve;
         [SerializeField][Tooltip("Engine brake power at maximum RPM (in newton meters)")] private float maxEngineBrakePower = 10;
         [SerializeField][Tooltip("Distribution of motor torque between the front axle and the rear axle. (0=RWD, 1=FWD)")][Range(0, 1)] private float torqueBias = 0f;
@@ -57,5 +60,6 @@ namespace Ivankarez.AIFR.Vehicles
         [SerializeField][Tooltip("Should the vehicle use ABS")] private bool isABSEnabled = true;
         [SerializeField][Tooltip("Speed of the abs to engage and release")] private float absSpeed = 0.25f;
         [SerializeField][Tooltip("How much brake the abs cuts")][Range(0, 1)] private float absCut = 0.75f;
+        [SerializeField][Tooltip("Speed of the automatic clutch engage and release")] private float clutchSpeed = 1;
     }
 }

@@ -15,7 +15,9 @@ namespace Ivankarez.AIFR.Vehicles
             TotalDriveRatio = vehicle.VehicleBehaviourDescription.DifferentialGearRatio * CurrentGearRatio;
 
             var wheelRpm = vehicle.Wheels.MaxRpm;
-            CurrentRpm = wheelRpm * TotalDriveRatio;
+            var wheelBasedEngineRpm = wheelRpm * TotalDriveRatio;
+            var neutralRpm = CalculateNeutralRpm(vehicle);
+            CurrentRpm = Mathf.Lerp(wheelBasedEngineRpm, neutralRpm, vehicle.ClutchPosition);
         }
 
         public void ShiftUp(Vehicle vehicle)
@@ -32,6 +34,16 @@ namespace Ivankarez.AIFR.Vehicles
             {
                 CurrentGear--;
             }
+        }
+
+        private float CalculateNeutralRpm(Vehicle vehicle)
+        {
+            if (vehicle.Inputs.Throttle == 0)
+            {
+                return vehicle.VehicleBehaviourDescription.IdleRpm;
+            }
+
+            return vehicle.VehicleBehaviourDescription.MaxRPM * vehicle.Inputs.Throttle;
         }
     }
 }

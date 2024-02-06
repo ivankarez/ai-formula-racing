@@ -13,6 +13,7 @@ namespace Ivankarez.AIFR.Vehicles
         public VehicleWheels Wheels => wheels;
         public VehicleTransmission VehicleTransmission => vehicleTransmission;
         public float Speed => vehicleRigidbody.velocity.magnitude * 3.6f;
+        public float ClutchPosition { get; private set; }
 
         [Header("Dependencies")]
         [SerializeField] private VehicleWheels wheels;
@@ -45,6 +46,7 @@ namespace Ivankarez.AIFR.Vehicles
             VehicleTransmission.UpdateTransmission(this);
 
             CalculateTractionControlCut();
+            CalculateAutoClutch();
             CalculateCurrentTorque();
 
             wheels.UpdateWheels(this);
@@ -60,13 +62,15 @@ namespace Ivankarez.AIFR.Vehicles
             {
                 var rpmRatio = VehicleTransmission.CurrentRpm / vehicleBehaviourDescription.MaxRPM;
                 var torqueCurveMultiplier = vehicleBehaviourDescription.TorqueCurve.Evaluate(rpmRatio);
+                var clutchMutliplier = (1 - ClutchPosition);
                 if (inputs.Throttle == 0)
                 {
-                    CurrentMotorTorque = torqueCurveMultiplier * -VehicleBehaviourDescription.MaxEngineBrakePower;
+                    var speedMultiplier = Mathf.Clamp01(Speed / 100f);
+                    CurrentMotorTorque = torqueCurveMultiplier * -VehicleBehaviourDescription.MaxEngineBrakePower * clutchMutliplier * speedMultiplier;
                 }
                 else
                 {
-                    CurrentMotorTorque = inputs.Throttle * torqueCurveMultiplier * vehicleBehaviourDescription.MaxTorque * (1 - TractionControlCut);
+                    CurrentMotorTorque = inputs.Throttle * torqueCurveMultiplier * vehicleBehaviourDescription.MaxTorque * (1 - TractionControlCut) * clutchMutliplier;
                 }
             }
         }
@@ -88,6 +92,12 @@ namespace Ivankarez.AIFR.Vehicles
             }
 
             TractionControlCut = cut;
+        }
+
+        private void CalculateAutoClutch()
+        {
+            var targetClutch = vehicleTransmission.CurrentRpm < VehicleBehaviourDescription.IdleRpm && inputs.Throttle == 0 ? 1 : 0;
+            ClutchPosition = Mathf.Lerp(ClutchPosition, targetClutch, Time.deltaTime * VehicleBehaviourDescription.ClutchSpeed);
         }
     }
 }

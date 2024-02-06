@@ -16,6 +16,7 @@ MonoBehaviour:
   maxSpeed: 20
   maxTorque: 508
   maxRPM: 14000
+  idleRPM: 800
   torqueCurve:
     serializedVersion: 2
     m_Curve:
@@ -71,3 +72,4 @@ MonoBehaviour:
   isABSEnabled: 1
   absSpeed: 20
   absCut: 0.75
+  clutchSpeed: 10
