@@ -14,6 +14,7 @@ namespace Ivankarez.AIFR.Vehicles
         public VehicleWheel FrontRight => frontRight;
         public VehicleWheel RearLeft => rearLeft;
         public VehicleWheel RearRight => rearRight;
+        public float WheelTorque { get; private set; }
         public float MaxRpm { get; private set; }
         public float AbsCut { get; private set; }
         public IReadOnlyList<VehicleWheel> AllWheels { get; private set; }
@@ -33,7 +34,10 @@ namespace Ivankarez.AIFR.Vehicles
             var vehicleBehaviour = vehicle.VehicleBehaviourDescription;
             CalculateAbsCut(vehicle);
 
-            var frontTorque = vehicle.CurrentTorque * vehicleBehaviour.TorqueBias;
+            var drivenWheelCount = vehicleBehaviour.TorqueBias == 0 || vehicleBehaviour.TorqueBias == 1 ? 2 : 4;
+            WheelTorque = vehicle.CurrentMotorTorque * vehicle.VehicleTransmission.TotalDriveRatio / drivenWheelCount;
+
+            var frontTorque = WheelTorque * vehicleBehaviour.TorqueBias;
             var absBrakeTorqueMultiplier = (1 - AbsCut);
             var frontBrakeTorque = inputs.Brake * vehicleBehaviour.MaxBrakePower * vehicleBehaviour.BrakeBias * absBrakeTorqueMultiplier;
             var steerAngle = inputs.Steer * vehicleBehaviour.MaxSteerAngle;
@@ -44,7 +48,7 @@ namespace Ivankarez.AIFR.Vehicles
                 wheel.SteerAngle = steerAngle;
             }
 
-            var rearTorque = vehicle.CurrentTorque * (1 - vehicleBehaviour.TorqueBias);
+            var rearTorque = WheelTorque * (1 - vehicleBehaviour.TorqueBias);
             var rearBrakeTorque = inputs.Brake * vehicleBehaviour.MaxBrakePower * (1 - vehicleBehaviour.BrakeBias) * absBrakeTorqueMultiplier;
             foreach (var wheel in RearWheels)
             {

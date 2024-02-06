@@ -33,7 +33,8 @@ namespace Ivankarez.AIFR.Vehicles
             debugStringBuilder.AppendLine($"Current Gear Ratio: {vehicle.VehicleTransmission.CurrentGearRatio:f2}");
             debugStringBuilder.AppendLine($"Total Drive Ratio: {vehicle.VehicleTransmission.TotalDriveRatio:f2}");
             debugStringBuilder.AppendLine($"Wheel RPM: {vehicle.Wheels.MaxRpm:f0}");
-            debugStringBuilder.AppendLine($"Current Torque: {vehicle.CurrentTorque:f0}nm");
+            debugStringBuilder.AppendLine($"Current Motor Torque: {vehicle.CurrentMotorTorque:f0}nm");
+            debugStringBuilder.AppendLine($"Current Wheel Torque: {vehicle.Wheels.WheelTorque:f0}nm");
             debugStringBuilder.AppendLine($"Current RPM: {vehicle.VehicleTransmission.CurrentRpm:f0}");
             debugStringBuilder.AppendLine($"Speed: {vehicle.Speed:f0}");
             debugStringBuilder.AppendLine($"TCR cut: {vehicle.TractionControlCut*100:f0}%");

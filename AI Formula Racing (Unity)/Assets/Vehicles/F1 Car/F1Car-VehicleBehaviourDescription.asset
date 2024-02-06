@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mass: 850
   maxSpeed: 20
-  maxTorque: 1000
+  maxTorque: 508
   maxRPM: 14000
   torqueCurve:
     serializedVersion: 2
@@ -49,9 +49,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  maxEngineBrakePower: 10
+  maxEngineBrakePower: 500
   torqueBias: 0
-  maxBrakePower: 10000
+  maxBrakePower: 9000
   brakeBias: 0.6
   maxSteerAngle: 15
   gearRatios:
@@ -70,3 +70,4 @@ MonoBehaviour:
   tractionControlCut: 0.75
   isABSEnabled: 1
   absSpeed: 20
+  absCut: 0.75
