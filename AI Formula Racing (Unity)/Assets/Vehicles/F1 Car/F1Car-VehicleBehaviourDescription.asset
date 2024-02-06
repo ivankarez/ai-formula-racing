@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mass: 850
   maxSpeed: 20
-  maxTorque: 280
+  maxTorque: 1000
   maxRPM: 14000
   torqueCurve:
     serializedVersion: 2
@@ -64,3 +64,9 @@ MonoBehaviour:
   - 5.39
   - 4.78
   differentialGearRatio: 1
+  isTractionControlEnabled: 1
+  tractionControlThreshold: 0.25
+  tractionControlSpeed: 10
+  tractionControlCut: 0.75
+  isABSEnabled: 1
+  absSpeed: 20

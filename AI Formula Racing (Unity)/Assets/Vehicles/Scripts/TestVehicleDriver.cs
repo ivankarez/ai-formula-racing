@@ -36,6 +36,8 @@ namespace Ivankarez.AIFR.Vehicles
             debugStringBuilder.AppendLine($"Current Torque: {vehicle.CurrentTorque:f0}nm");
             debugStringBuilder.AppendLine($"Current RPM: {vehicle.VehicleTransmission.CurrentRpm:f0}");
             debugStringBuilder.AppendLine($"Speed: {vehicle.Speed:f0}");
+            debugStringBuilder.AppendLine($"TCR cut: {vehicle.TractionControlCut*100:f0}%");
+            debugStringBuilder.AppendLine($"ABS cut: {vehicle.Wheels.AbsCut*100:f0}%");
 
             debugText.text = debugStringBuilder.ToString();
             debugStringBuilder.Clear();
