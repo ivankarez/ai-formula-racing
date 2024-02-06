@@ -20,8 +20,9 @@ namespace Ivankarez.AIFR.Vehicles
         [SerializeField] private VehicleTransmission vehicleTransmission;
         [SerializeField] private Rigidbody vehicleRigidbody;
 
-        [Header("Behaviour")]
+        [Header("Settings")]
         [SerializeField] private VehicleBehaviourDescription vehicleBehaviourDescription;
+        [SerializeField] private Transform centerOfMass;
 
 
         private void Awake()
@@ -36,6 +37,7 @@ namespace Ivankarez.AIFR.Vehicles
         private void Start()
         {
             vehicleRigidbody.mass = vehicleBehaviourDescription.Mass;
+            vehicleRigidbody.centerOfMass = centerOfMass.localPosition;
         }
 
         private void Update()

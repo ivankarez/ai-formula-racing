@@ -575,6 +575,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3636568491413062700}
+  - {fileID: 1415766212084331936}
   - {fileID: 573881505317424077}
   - {fileID: 6005673581063523080}
   m_Father: {fileID: 0}
@@ -620,9 +621,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wheels: {fileID: 6458609010844364976}
   inputs: {fileID: 8973867963439115752}
+  vehicleTransmission: {fileID: 0}
   vehicleRigidbody: {fileID: 1342528223211876179}
   vehicleBehaviourDescription: {fileID: 11400000, guid: 2aefad374686a224bb18dcf5b659f953,
     type: 2}
+  centerOfMass: {fileID: 1415766212084331936}
 --- !u!114 &8973867963439115752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -790,6 +793,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.43, y: 0.31, z: 1.93}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &8459067472228054572
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1415766212084331936}
+  m_Layer: 0
+  m_Name: Center Of Mass
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1415766212084331936
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8459067472228054572}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.4, z: -0.94}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6003958191286401532}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &3890290649604334535
 PrefabInstance:
   m_ObjectHideFlags: 0
