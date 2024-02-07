@@ -10,6 +10,7 @@ namespace Ivankarez.AIFR.Vehicles
         public float Rpm { get; private set; }
         public float ForwardSlip { get; private set; }
         public float SidewaysSlip { get; private set; }
+        public float FrictionMultiplier { get; set; } = 1f;
         public bool IsGrounded { get; private set; }
 
         [SerializeField] private WheelCollider wheelCollider;
@@ -17,14 +18,21 @@ namespace Ivankarez.AIFR.Vehicles
 
         private Vector3 wheelPosition;
         private Quaternion wheelRotation;
+        private WheelFrictionCurve baseForwardFriction;
+        private WheelFrictionCurve baseSidewaysFriction;
 
         private void Awake()
         {
-            wheelCollider.ConfigureVehicleSubsteps(5.0f, 30, 30);
+            wheelCollider.ConfigureVehicleSubsteps(5.0f, 30, 10);
+            baseForwardFriction = wheelCollider.forwardFriction;
+            baseSidewaysFriction = wheelCollider.sidewaysFriction;
         }
 
         private void Update()
         {
+            wheelCollider.forwardFriction = MultiplyFriction(baseForwardFriction);
+            wheelCollider.sidewaysFriction = MultiplyFriction(baseSidewaysFriction);
+
             wheelCollider.steerAngle = SteerAngle;
             wheelCollider.motorTorque = Torque;
             wheelCollider.brakeTorque = BrakeTorque;
@@ -47,6 +55,12 @@ namespace Ivankarez.AIFR.Vehicles
             }
 
             Rpm = wheelCollider.rpm;
+        }
+
+        private WheelFrictionCurve MultiplyFriction(WheelFrictionCurve baseCurve)
+        {
+            baseCurve.stiffness *= FrictionMultiplier;
+            return baseCurve;
         }
     }
 }

@@ -40,6 +40,7 @@ namespace Ivankarez.AIFR.Vehicles
             debugStringBuilder.AppendLine($"TCR cut: {vehicle.TractionControlCut*100:f0}%");
             debugStringBuilder.AppendLine($"ABS cut: {vehicle.Wheels.AbsCut*100:f0}%");
             debugStringBuilder.AppendLine($"Clutch position: {vehicle.ClutchPosition * 100:f0}%");
+            debugStringBuilder.AppendLine($"Total Downforce: {vehicle.TotalDownforce:f0}kg");
 
             debugText.text = debugStringBuilder.ToString();
             debugStringBuilder.Clear();

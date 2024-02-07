@@ -6,7 +6,7 @@ namespace Ivankarez.AIFR.Vehicles
     public class VehicleBehaviourDescription : ScriptableObject
     {
         public float Mass => mass;
-        public float MaxSpeed => maxSpeed;
+        public float Downforce => downforce;
         public float MaxTorque => maxTorque;
         public float MaxRPM => maxRPM;
         public AnimationCurve TorqueCurve => torqueCurve;
@@ -18,6 +18,7 @@ namespace Ivankarez.AIFR.Vehicles
         public float[] GearRatios => gearRatios;
         public int GearCount => gearRatios.Length;
         public float DifferentialGearRatio => differentialGearRatio;
+        public float BaseGrip => baseGrip;
         public bool IsTractionControlEnabled => isTractionControlEnabled;
         public float TractionControlThreshold => tractionControlThreshold;
         public float TractionControlSpeed => tractionControlSpeed;
@@ -31,7 +32,7 @@ namespace Ivankarez.AIFR.Vehicles
 
         [Header("Physical")]
         [SerializeField][Tooltip("Mass of the vehicle in kilogramms")] private float mass = 1000;
-        [SerializeField][Tooltip("Total downforce of the vehicle (in newtons) at 100km/h")] private float maxSpeed = 20;
+        [SerializeField][Tooltip("Total downforce of the vehicle (in kg) at 100km/h")] private float downforce = 20;
 
         [Header("Engine")]
         [SerializeField][Tooltip("Maximum engine torque (in newton meters)")] private float maxTorque = 500;
@@ -51,6 +52,9 @@ namespace Ivankarez.AIFR.Vehicles
         [Header("Transmission")]
         [SerializeField][Tooltip("Gear ratios")] private float[] gearRatios = new float[] { 3.5f, 2.5f, 1.8f, 1.3f, 1.0f, 0.8f };
         [SerializeField][Tooltip("Differential gear ratio")] private float differentialGearRatio = 3.5f;
+
+        [Header("Wheels")]
+        [SerializeField][Tooltip("Base grip multiplier for the wheels")] private float baseGrip = 1f;
 
         [Header("Misc")]
         [SerializeField][Tooltip("Should the vehicle use traction control")] private bool isTractionControlEnabled = true;

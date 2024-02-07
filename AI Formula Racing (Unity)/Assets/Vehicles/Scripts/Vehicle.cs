@@ -14,6 +14,8 @@ namespace Ivankarez.AIFR.Vehicles
         public VehicleTransmission VehicleTransmission => vehicleTransmission;
         public float Speed => vehicleRigidbody.velocity.magnitude * 3.6f;
         public float ClutchPosition { get; private set; }
+        public float TotalDownforce { get; private set; }
+        public float DownforceWeightPercentage { get; private set; }
 
         [Header("Dependencies")]
         [SerializeField] private VehicleWheels wheels;
@@ -45,6 +47,7 @@ namespace Ivankarez.AIFR.Vehicles
         {
             VehicleTransmission.UpdateTransmission(this);
 
+            CalculateDownforce();
             CalculateTractionControlCut();
             CalculateAutoClutch();
             CalculateCurrentTorque();
@@ -98,6 +101,13 @@ namespace Ivankarez.AIFR.Vehicles
         {
             var targetClutch = vehicleTransmission.CurrentRpm < VehicleBehaviourDescription.IdleRpm && inputs.Throttle == 0 ? 1 : 0;
             ClutchPosition = Mathf.Lerp(ClutchPosition, targetClutch, Time.deltaTime * VehicleBehaviourDescription.ClutchSpeed);
+        }
+
+        private void CalculateDownforce()
+        {
+            TotalDownforce = Speed * vehicleBehaviourDescription.Downforce / 100f;
+            vehicleRigidbody.AddForce(-vehicleRigidbody.transform.up * TotalDownforce);
+            DownforceWeightPercentage = TotalDownforce / vehicleBehaviourDescription.Mass;
         }
     }
 }

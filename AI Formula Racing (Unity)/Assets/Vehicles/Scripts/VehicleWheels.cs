@@ -34,6 +34,8 @@ namespace Ivankarez.AIFR.Vehicles
             var vehicleBehaviour = vehicle.VehicleBehaviourDescription;
             CalculateAbsCut(vehicle);
 
+            var wheelFriction = vehicleBehaviour.BaseGrip + vehicle.DownforceWeightPercentage;
+
             var drivenWheelCount = vehicleBehaviour.TorqueBias == 0 || vehicleBehaviour.TorqueBias == 1 ? 2 : 4;
             WheelTorque = vehicle.CurrentMotorTorque * vehicle.VehicleTransmission.TotalDriveRatio / drivenWheelCount;
 
@@ -46,6 +48,7 @@ namespace Ivankarez.AIFR.Vehicles
                 wheel.Torque = frontTorque;
                 wheel.BrakeTorque = frontBrakeTorque;
                 wheel.SteerAngle = steerAngle;
+                wheel.FrictionMultiplier = wheelFriction;
             }
 
             var rearTorque = WheelTorque * (1 - vehicleBehaviour.TorqueBias);
@@ -55,6 +58,7 @@ namespace Ivankarez.AIFR.Vehicles
                 wheel.Torque = rearTorque;
                 wheel.BrakeTorque = rearBrakeTorque;
                 wheel.SteerAngle = 0;
+                wheel.FrictionMultiplier = wheelFriction;
             }
 
             MaxRpm = Mathf.Max(rearLeft.Rpm, rearRight.Rpm);

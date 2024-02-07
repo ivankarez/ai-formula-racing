@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: F1Car-VehicleBehaviourDescription
   m_EditorClassIdentifier: 
   mass: 850
-  maxSpeed: 20
+  downforce: 468
   maxTorque: 508
   maxRPM: 14000
   idleRPM: 800
@@ -65,11 +65,12 @@ MonoBehaviour:
   - 5.39
   - 4.78
   differentialGearRatio: 1
+  baseGrip: 1.3
   isTractionControlEnabled: 1
-  tractionControlThreshold: 0.25
-  tractionControlSpeed: 10
-  tractionControlCut: 0.75
+  tractionControlThreshold: 0.35
+  tractionControlSpeed: 5
+  tractionControlCut: 1
   isABSEnabled: 1
-  absSpeed: 20
-  absCut: 0.75
+  absSpeed: 100
+  absCut: 1
   clutchSpeed: 10
