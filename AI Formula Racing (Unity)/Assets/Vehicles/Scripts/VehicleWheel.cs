@@ -12,6 +12,7 @@ namespace Ivankarez.AIFR.Vehicles
         public float SidewaysSlip { get; private set; }
         public float FrictionMultiplier { get; set; } = 1f;
         public bool IsGrounded { get; private set; }
+        public float Radius => wheelCollider.radius;
 
         [SerializeField] private WheelCollider wheelCollider;
         [SerializeField] private Transform wheelTransform;
