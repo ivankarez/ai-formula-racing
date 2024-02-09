@@ -1,0 +1,16 @@
+{
+    "name": "Ivankarez.RacetrackGenerator.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:729b4d6a72bf4e64d9bf480d34a52cce"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
