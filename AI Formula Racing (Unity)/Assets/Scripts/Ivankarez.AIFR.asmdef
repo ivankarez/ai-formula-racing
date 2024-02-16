@@ -2,13 +2,17 @@
     "name": "Ivankarez.AIFR",
     "rootNamespace": "",
     "references": [
-        "GUID:729b4d6a72bf4e64d9bf480d34a52cce"
+        "GUID:729b4d6a72bf4e64d9bf480d34a52cce",
+        "GUID:69d1c27c2bbc4404da28d6207207dcff",
+        "GUID:fc3b4b9434cdd534991fa2aff585e230"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "NeuralNetworks.dll"
+    ],
     "autoReferenced": true,
     "defineConstraints": [],
     "versionDefines": [],

@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 782686029}
   m_Layer: 6
   m_Name: Hungaroring Track Mesh
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647

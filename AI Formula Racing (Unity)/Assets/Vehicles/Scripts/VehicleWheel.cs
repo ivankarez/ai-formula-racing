@@ -12,6 +12,7 @@ namespace Ivankarez.AIFR.Vehicles
         public float SidewaysSlip { get; private set; }
         public float FrictionMultiplier { get; set; } = 1f;
         public bool IsGrounded { get; private set; }
+        public WheelHit? LatestGroundHit { get; private set; }
         public float Radius => wheelCollider.radius;
 
         [SerializeField] private WheelCollider wheelCollider;
@@ -47,12 +48,14 @@ namespace Ivankarez.AIFR.Vehicles
                 ForwardSlip = hit.forwardSlip;
                 SidewaysSlip = hit.sidewaysSlip;
                 IsGrounded = true;
+                LatestGroundHit = hit;
             }
             else
             {
                 ForwardSlip = 0;
                 SidewaysSlip = 0;
                 IsGrounded = false;
+                LatestGroundHit = null;
             }
 
             Rpm = wheelCollider.rpm;

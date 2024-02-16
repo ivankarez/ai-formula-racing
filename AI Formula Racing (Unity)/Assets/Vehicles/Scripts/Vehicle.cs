@@ -30,11 +30,11 @@ namespace Ivankarez.AIFR.Vehicles
 
         private void Awake()
         {
-            Check.DependencyNotNull(wheels);
-            Check.DependencyNotNull(inputs);
-            Check.DependencyNotNull(vehicleRigidbody);
-            Check.DependencyNotNull(vehicleBehaviourDescription);
-            Check.DependencyNotNull(vehicleTransmission);
+            Check.ArgumentNotNull(wheels);
+            Check.ArgumentNotNull(inputs);
+            Check.ArgumentNotNull(vehicleRigidbody);
+            Check.ArgumentNotNull(vehicleBehaviourDescription);
+            Check.ArgumentNotNull(vehicleTransmission);
         }
 
         private void Start()
