@@ -1,4 +1,3 @@
-using Ivankarez.AIFR.Common.Utils;
 using UnityEngine;
 
 namespace Ivankarez.AIFR
@@ -14,7 +13,10 @@ namespace Ivankarez.AIFR
                 if (settings == null)
                 {
                     settings = Resources.Load<AIFRSettings>("AIFRSettings");
-                    Check.ArgumentNotNull(settings);
+                    if (settings == null)
+                    {
+                        Debug.LogError("AIFRSettings instance not found in Resources folder");
+                    }
                 }
 
                 return settings;

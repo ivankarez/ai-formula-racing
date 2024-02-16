@@ -1,12 +1,18 @@
 ﻿using UnityEngine;
 using Ivankarez.NeuralNetworks;
 using Ivankarez.NeuralNetworks.Api;
+using Ivankarez.AIFR.Common.Utils;
 
 namespace Ivankarez.AIFR
 {
     public class NeuralNetworkProvider : MonoBehaviour
     {
         [SerializeField] private AIFRSettingsProvider settingsProvider;
+
+        private void Awake()
+        {
+            Check.ArgumentNotNull(settingsProvider, nameof(settingsProvider));
+        }
 
         public LayeredNetworkModel CreateImageEmbeddingModel()
         {

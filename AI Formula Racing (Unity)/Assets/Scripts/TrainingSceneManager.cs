@@ -18,18 +18,21 @@ namespace Ivankarez.AIFR
         private RaceTrack raceTrack = null;
         private float lastSpawnTime = 0f;
 
+        private void Awake()
+        {
+            Check.ArgumentNotNull(geneticAlgorithm, nameof(geneticAlgorithm));
+            Check.ArgumentNotNull(driverPrefab, nameof(driverPrefab));
+            Check.ArgumentNotNull(settingsProvider, nameof(settingsProvider));            
+        }
+
         private void Start()
         {
-            Check.ArgumentNotNull(geneticAlgorithm);
-            Check.ArgumentNotNull(driverPrefab);
-            Check.ArgumentNotNull(settingsProvider);
-
             driverPrefab.gameObject.SetActive(false);
         }
 
         public void OnRaceTrackLoaded(RaceTrack track)
         {
-            Check.ArgumentNotNull(track);
+            Check.ArgumentNotNull(track, nameof(track));
             Check.State(raceTrack == null, "Cannot load multiple track in a single training session.");
             raceTrack = track;
 

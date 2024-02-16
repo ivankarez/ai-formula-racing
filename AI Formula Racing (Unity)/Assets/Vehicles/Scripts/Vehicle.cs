@@ -19,22 +19,23 @@ namespace Ivankarez.AIFR.Vehicles
 
         [Header("Dependencies")]
         [SerializeField] private VehicleWheels wheels;
+
         [SerializeField] private VehicleInputs inputs;
         [SerializeField] private VehicleTransmission vehicleTransmission;
         [SerializeField] private Rigidbody vehicleRigidbody;
 
         [Header("Settings")]
         [SerializeField] private VehicleBehaviourDescription vehicleBehaviourDescription;
-        [SerializeField] private Transform centerOfMass;
 
+        [SerializeField] private Transform centerOfMass;
 
         private void Awake()
         {
-            Check.ArgumentNotNull(wheels);
-            Check.ArgumentNotNull(inputs);
-            Check.ArgumentNotNull(vehicleRigidbody);
-            Check.ArgumentNotNull(vehicleBehaviourDescription);
-            Check.ArgumentNotNull(vehicleTransmission);
+            Check.ArgumentNotNull(wheels, nameof(wheels));
+            Check.ArgumentNotNull(inputs, nameof(inputs));
+            Check.ArgumentNotNull(vehicleRigidbody, nameof(vehicleRigidbody));
+            Check.ArgumentNotNull(vehicleBehaviourDescription, nameof(vehicleBehaviourDescription));
+            Check.ArgumentNotNull(vehicleTransmission, nameof(vehicleTransmission));
         }
 
         private void Start()

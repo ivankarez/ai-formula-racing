@@ -1,19 +1,23 @@
+using Ivankarez.AIFR.Common.Utils;
 using UnityEngine;
 
 namespace Ivankarez.AIFR
 {
     public class AiVision : MonoBehaviour
     {
-        private RenderTexture renderTexture;
+        public float[] Values { get; private set; }
+        public Texture2D Texture2d { get; private set; }
 
         [SerializeField] private Camera visionCamera;
         [SerializeField] private AIFRSettingsProvider settingsProvider;
 
-        public float[] Values { get; private set; }
-        public Texture2D Texture2d { get; private set; }
+        private RenderTexture renderTexture;
 
         private void Awake()
         {
+            Check.ArgumentNotNull(visionCamera, "visionCamera");
+            Check.ArgumentNotNull(settingsProvider, "settingsProvider");
+
             var settings = settingsProvider.Settings;
             var width = settings.CameraResolution;
             var height = settings.CameraResolution;

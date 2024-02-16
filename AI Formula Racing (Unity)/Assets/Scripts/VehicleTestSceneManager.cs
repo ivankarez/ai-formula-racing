@@ -1,4 +1,5 @@
 using Ivankarez.AIFR;
+using Ivankarez.AIFR.Common.Utils;
 using UnityEngine;
 
 public class VehicleTestSceneManager : MonoBehaviour
@@ -14,6 +15,8 @@ public class VehicleTestSceneManager : MonoBehaviour
 
     public void OnRaceTrackLoaded(RaceTrack raceTrack)
     {
+        Check.ArgumentNotNull(raceTrack, nameof(raceTrack));
+
         startPoint = raceTrack.StartPoint;
         vehicleTransform.gameObject.SetActive(true);
         ResetCar();

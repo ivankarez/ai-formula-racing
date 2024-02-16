@@ -7,10 +7,10 @@ namespace Ivankarez.AIFR
 {
     public class TrackSceneLoader : MonoBehaviour
     {
-        [SerializeField] private RaceTrackName trackToLoad;
+        public RaceTrack LoadedRaceTrack { get; private set; }
         public UnityEvent<RaceTrack> OnTrackLoaded;
 
-        public RaceTrack LoadedRaceTrack { get; private set; }
+        [SerializeField] private RaceTrackName trackToLoad;
 
         private void Start()
         {

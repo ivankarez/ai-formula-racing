@@ -21,9 +21,9 @@ namespace Ivankarez.AIFR.TrainingAlgorithm
 
         private void Awake()
         {
-            Check.ArgumentNotNull(settingsProvider);
-            Check.ArgumentNotNull(neuralNetworkProvider);
-            Check.ArgumentNotNull(selection);
+            Check.ArgumentNotNull(settingsProvider, nameof(settingsProvider));
+            Check.ArgumentNotNull(neuralNetworkProvider, nameof(neuralNetworkProvider));
+            Check.ArgumentNotNull(selection, nameof(selection));
         }
 
         private void Start()
@@ -51,6 +51,8 @@ namespace Ivankarez.AIFR.TrainingAlgorithm
 
         public void CreateNextGeneration(Action callback)
         {
+            Check.ArgumentNotNull(callback, nameof(callback));
+
             if (population.All(i => !i.Fitness.HasValue))
             {
                 throw new InvalidOperationException("All individuals must have fitness value before creating next generation");

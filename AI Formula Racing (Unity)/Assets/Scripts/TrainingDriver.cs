@@ -9,9 +9,9 @@ namespace Ivankarez.AIFR
     public class TrainingDriver : MonoBehaviour
     {
         public Vehicle Vehicle => vehicle;
+        public AiVision VehicleCamera => vehicleCamera;
         public float DistanceTravelled { get; private set; }
         public float TimeAlive { get; private set; }
-        public AiVision VehicleCamera => vehicleCamera;
 
         [SerializeField] private NeuralNetworkProvider networkProvider;
         [SerializeField] private Vehicle vehicle;
@@ -25,15 +25,15 @@ namespace Ivankarez.AIFR
 
         private void Awake()
         {
-            Check.ArgumentNotNull(networkProvider);
-            Check.ArgumentNotNull(vehicle);
+            Check.ArgumentNotNull(networkProvider, nameof(networkProvider));
+            Check.ArgumentNotNull(vehicle, nameof(vehicle));
         }
 
         public void Initialize(Individual individual)
         {
             Check.State(!isInitialized, "Cannot initialize a training driver mutliple times");
 
-            this.individual = Check.ArgumentNotNull(individual);
+            this.individual = Check.ArgumentNotNull(individual, nameof(individual));
             vehicle.gameObject.SetActive(true);
             isInitialized = true;
             lastPosition = vehicle.transform.position;

@@ -2,24 +2,32 @@ namespace Ivankarez.AIFR.Common.Utils
 {
     public static class Check
     {
-        public static T ArgumentNotNull<T>(T dep, string message = null)
+        public static T ArgumentNotNull<T>(T dep, string paramName)
         {
-            message ??= $"Dependency of tpye {typeof(T).Name} cannot be null.";
             if (dep == null)
             {
-                throw new System.ArgumentNullException(message);
+                throw new System.ArgumentNullException(paramName);
             }
 
             return dep;
         }
 
-        public static void State(bool condition, string message = null)
+        public static void State(bool condition, string message)
         {
-            message ??= "State condition failed.";
             if (!condition)
             {
                 throw new System.InvalidOperationException(message);
             }
+        }
+
+        public static T[] NotEmpty<T>(T[] array, string parameterName)
+        {
+            if (array.Length == 0)
+            {
+                throw new System.ArgumentException("Array must not be empty", parameterName);
+            }
+
+            return array;
         }
     }
 }

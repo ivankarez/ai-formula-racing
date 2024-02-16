@@ -1,4 +1,5 @@
 ﻿using Assets.Common.Utils;
+using Ivankarez.AIFR.Common.Utils;
 using System;
 using System.IO;
 
@@ -11,27 +12,25 @@ namespace Ivankarez.AIFR.TrainingAlgorithm
         public float[] DrivingNetworkWeights { get; }
         public long Generation { get; }
         public DateTime CreatedAt { get; }
-
         public float? Fitness { get; set; } = null;
         public float? TimeAlive { get; set; } = null;
 
-        private Individual(long id, float[] embeddingWeights, float[] drivingNetworkWeights, long generation, DateTime createdAt, float? fitness, float? timeAlive)
+        private Individual(long id, float[] embeddingWeights, float[] drivingNetworkWeights, long generation,
+            DateTime createdAt, float? fitness = null, float? timeAlive = null)
         {
             Id = id;
-            EmbeddingWeights = embeddingWeights;
-            DrivingNetworkWeights = drivingNetworkWeights;
+            EmbeddingWeights = Check.NotEmpty(embeddingWeights, nameof(embeddingWeights));
+            DrivingNetworkWeights = Check.NotEmpty(drivingNetworkWeights, nameof(drivingNetworkWeights));
             Generation = generation;
             CreatedAt = createdAt;
             Fitness = fitness;
             TimeAlive = timeAlive;
         }
 
-        public Individual(long id, float[] embeddingWeights, float[] drivingNetworkWeights, long generation, DateTime createdAt) : this(id, embeddingWeights, drivingNetworkWeights, generation, createdAt, null, null)
-        {
-        }
-
         public void Write(BinaryWriter writer)
         {
+            Check.ArgumentNotNull(writer, nameof(writer));
+
             writer.Write(Id);
             writer.Write(EmbeddingWeights);
             writer.Write(DrivingNetworkWeights);
@@ -43,6 +42,8 @@ namespace Ivankarez.AIFR.TrainingAlgorithm
 
         public static Individual Read(BinaryReader reader)
         {
+            Check.ArgumentNotNull(reader, nameof(reader));
+
             var id = reader.ReadInt64();
             var embeddingWeights = reader.ReadFloatArray();
             var drivingNetworkWeights = reader.ReadFloatArray();
