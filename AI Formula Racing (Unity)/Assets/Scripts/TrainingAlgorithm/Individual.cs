@@ -15,7 +15,7 @@ namespace Ivankarez.AIFR.TrainingAlgorithm
         public float? Fitness { get; set; } = null;
         public float? TimeAlive { get; set; } = null;
 
-        private Individual(long id, float[] embeddingWeights, float[] drivingNetworkWeights, long generation,
+        public Individual(long id, float[] embeddingWeights, float[] drivingNetworkWeights, long generation,
             DateTime createdAt, float? fitness = null, float? timeAlive = null)
         {
             Id = id;
