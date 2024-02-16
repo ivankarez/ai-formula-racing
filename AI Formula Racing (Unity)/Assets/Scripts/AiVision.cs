@@ -2,15 +2,15 @@ using UnityEngine;
 
 namespace Ivankarez.AIFR
 {
-    public class VehicleCamera : MonoBehaviour
+    public class AiVision : MonoBehaviour
     {
+        private RenderTexture renderTexture;
+
         [SerializeField] private Camera visionCamera;
         [SerializeField] private AIFRSettingsProvider settingsProvider;
 
-        public float[] Values;
+        public float[] Values { get; private set; }
         public Texture2D Texture2d { get; private set; }
-
-        private RenderTexture renderTexture;
 
         private void Awake()
         {
@@ -45,17 +45,12 @@ namespace Ivankarez.AIFR
                 for (int y = 0; y < Texture2d.height; y++)
                 {
                     var pixel = Texture2d.GetPixel(x, y);
-                    var value = 1 - pixel.grayscale;
+                    var value = pixel.grayscale;
                     Values[x * Texture2d.height + y] = value;
                     Texture2d.SetPixel(x, y, new Color(value, value, value, 1f));
                 }
             }
             Texture2d.Apply();
-        }
-
-        private void OnGUI()
-        {
-            GUI.DrawTexture(new Rect(0, 0, 256, 256), Texture2d);
         }
     }
 }

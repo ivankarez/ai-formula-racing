@@ -11,11 +11,11 @@ namespace Ivankarez.AIFR
         public Vehicle Vehicle => vehicle;
         public float DistanceTravelled { get; private set; }
         public float TimeAlive { get; private set; }
-        public VehicleCamera VehicleCamera => vehicleCamera;
+        public AiVision VehicleCamera => vehicleCamera;
 
         [SerializeField] private NeuralNetworkProvider networkProvider;
         [SerializeField] private Vehicle vehicle;
-        [SerializeField] private VehicleCamera vehicleCamera;
+        [SerializeField] private AiVision vehicleCamera;
 
         private Individual individual;
         private bool isInitialized = false;

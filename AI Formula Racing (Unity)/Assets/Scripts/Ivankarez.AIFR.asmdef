@@ -1,6 +1,6 @@
 {
     "name": "Ivankarez.AIFR",
-    "rootNamespace": "",
+    "rootNamespace": "Ivankarez.AIFR",
     "references": [
         "GUID:729b4d6a72bf4e64d9bf480d34a52cce",
         "GUID:69d1c27c2bbc4404da28d6207207dcff",
