@@ -4,19 +4,22 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Ivankarez.AIFR.TrainingAlgorithm
 {
     public class GeneticAlgorithm : MonoBehaviour
     {
         private static readonly System.Random random = new();
+        public long Generation { get; private set; } = 0L;
 
+        [HideInInspector] public UnityEvent<IReadOnlyList<Individual>> OnNewGenerationStarted;
+        [HideInInspector] public UnityEvent<IReadOnlyList<Individual>> OnGenerationFinished;
         [SerializeField] private AIFRSettingsProvider settingsProvider;
         [SerializeField] private NeuralNetworkProvider neuralNetworkProvider;
         [SerializeField] private SelectionAlgorithm selection;
 
         private readonly List<Individual> population = new();
-        private long generation = 0;
         private long individuals = 0;
 
         private void Awake()
@@ -29,6 +32,7 @@ namespace Ivankarez.AIFR.TrainingAlgorithm
         private void Start()
         {
             CreateFirstGeneration();
+            OnNewGenerationStarted.Invoke(population);
         }
 
         private void CreateFirstGeneration()
@@ -39,7 +43,7 @@ namespace Ivankarez.AIFR.TrainingAlgorithm
             {
                 var embeddingWeights = neuralNetworkProvider.CreateImageEmbeddingModel().GetParametersFlat();
                 var drivingWeights = neuralNetworkProvider.CreateDrivingModel().GetParametersFlat();
-                var individual = new Individual(individuals++, embeddingWeights, drivingWeights, generation, DateTime.Now);
+                var individual = new Individual(individuals++, embeddingWeights, drivingWeights, Generation, DateTime.Now);
                 population.Add(individual);
             }
         }
@@ -57,13 +61,15 @@ namespace Ivankarez.AIFR.TrainingAlgorithm
             {
                 throw new InvalidOperationException("All individuals must have fitness value before creating next generation");
             }
-            Debug.Log($"Result of gen {generation}: {population.OrderByDescending(i => i.Fitness).First().Fitness:f2}");
+            Debug.Log($"Result of gen {Generation}: {population.OrderByDescending(i => i.Fitness).First().Fitness:f2}");
 
-            generation++;
+            OnGenerationFinished.Invoke(population);
+            Generation++;
             var setting = settingsProvider.Settings;
             var newPopulation = CreateNewPopulation();
             population.Clear();
             population.AddRange(newPopulation);
+            OnNewGenerationStarted.Invoke(population);
             callback();
         }
 
@@ -83,7 +89,7 @@ namespace Ivankarez.AIFR.TrainingAlgorithm
                     var childDrivingWeights = Crossover(parent1.DrivingNetworkWeights, parent2.DrivingNetworkWeights);
                     Mutate(childEmbeddingWeights);
                     Mutate(childDrivingWeights);
-                    var child = new Individual(individuals++, childEmbeddingWeights, childDrivingWeights, generation, DateTime.Now);
+                    var child = new Individual(individuals++, childEmbeddingWeights, childDrivingWeights, Generation, DateTime.Now);
                     newPopulation.Add(child);
                 }
             }

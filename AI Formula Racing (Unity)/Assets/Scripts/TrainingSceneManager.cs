@@ -3,11 +3,15 @@ using Ivankarez.AIFR.TrainingAlgorithm;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Ivankarez.AIFR
 {
     public class TrainingSceneManager : MonoBehaviour
     {
+        [HideInInspector] public UnityEvent<TrainingDriver> OnDriverStarted;
+        [HideInInspector] public UnityEvent<TrainingDriver> OnDriverFinished;
+
         [SerializeField] private GeneticAlgorithm geneticAlgorithm;
         [SerializeField] private TrainingDriver driverPrefab;
         [SerializeField] private AIFRSettingsProvider settingsProvider;
@@ -63,6 +67,7 @@ namespace Ivankarez.AIFR
             foreach (var driver in finishedDrivers)
             {
                 runningDrivers.Remove(driver);
+                OnDriverFinished.Invoke(driver);
                 Destroy(driver.gameObject);
             }
 
@@ -95,6 +100,7 @@ namespace Ivankarez.AIFR
             runningDrivers.Add(driver);
 
             lastSpawnTime = Time.realtimeSinceStartup;
+            OnDriverStarted.Invoke(driver);
         }
 
         private bool IsDriverFinished(TrainingDriver driver)

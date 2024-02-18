@@ -12,12 +12,12 @@ namespace Ivankarez.AIFR
         public AiVision VehicleCamera => vehicleCamera;
         public float DistanceTravelled { get; private set; }
         public float TimeAlive { get; private set; }
+        public Individual Individual { get; private set; }
 
         [SerializeField] private NeuralNetworkProvider networkProvider;
         [SerializeField] private Vehicle vehicle;
         [SerializeField] private AiVision vehicleCamera;
 
-        private Individual individual;
         private bool isInitialized = false;
         private Vector3 lastPosition;
         private LayeredNetworkModel embeddingModel;
@@ -33,7 +33,7 @@ namespace Ivankarez.AIFR
         {
             Check.State(!isInitialized, "Cannot initialize a training driver mutliple times");
 
-            this.individual = Check.ArgumentNotNull(individual, nameof(individual));
+            Individual = Check.ArgumentNotNull(individual, nameof(individual));
             vehicle.gameObject.SetActive(true);
             isInitialized = true;
             lastPosition = vehicle.transform.position;
@@ -63,8 +63,8 @@ namespace Ivankarez.AIFR
             lastPosition = vehicle.transform.position;
             TimeAlive += Time.deltaTime;
 
-            individual.Fitness = distance;
-            individual.TimeAlive = TimeAlive;
+            Individual.Fitness = distance;
+            Individual.TimeAlive = TimeAlive;
         }
     }
 }
